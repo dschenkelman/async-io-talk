@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IOCompletionPorts", "IOCompletionPorts\IOCompletionPorts.csproj", "{0D68C42B-5FA9-42E2-8893-EB451A3AEF57}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IOCompletionPort.Sample", "IOCompletionPort.Sample\IOCompletionPort.Sample.csproj", "{54DE8E6B-F4E8-428F-8A88-4168B0B3EF73}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0D68C42B-5FA9-42E2-8893-EB451A3AEF57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D68C42B-5FA9-42E2-8893-EB451A3AEF57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D68C42B-5FA9-42E2-8893-EB451A3AEF57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D68C42B-5FA9-42E2-8893-EB451A3AEF57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54DE8E6B-F4E8-428F-8A88-4168B0B3EF73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54DE8E6B-F4E8-428F-8A88-4168B0B3EF73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54DE8E6B-F4E8-428F-8A88-4168B0B3EF73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54DE8E6B-F4E8-428F-8A88-4168B0B3EF73}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
