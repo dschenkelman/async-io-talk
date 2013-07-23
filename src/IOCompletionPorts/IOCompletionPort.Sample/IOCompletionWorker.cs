@@ -1,7 +1,6 @@
 ﻿namespace IOCompletionPort.Sample
 {
     using System;
-    using System.Threading;
 
     using IOCompletionPorts;
 
@@ -14,6 +13,8 @@
                 uint bytesRead;
                 uint completionKey;
                 IntPtr overlapped;
+
+                Console.WriteLine("About to get queued completion status on {0}", completionPort);
 
                 var result = Interop.GetQueuedCompletionStatus(
                     completionPort, 

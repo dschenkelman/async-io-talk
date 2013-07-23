@@ -1,9 +1,7 @@
 ﻿namespace IOCompletionPort.Sample
 {
     using System;
-    using System.IO;
     using System.Runtime.InteropServices;
-    using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -49,8 +47,7 @@
             UInt32 bytesRead;
 
             var ev = new ManualResetEvent(false);
-            var overlapped = new NativeOverlapped();
-            overlapped.EventHandle = ev.SafeWaitHandle.DangerousGetHandle();
+            var overlapped = new NativeOverlapped { EventHandle = ev.SafeWaitHandle.DangerousGetHandle() };
 
             GCHandle gch = GCHandle.Alloc(overlapped, GCHandleType.Pinned);
 
@@ -58,7 +55,7 @@
 
             ev.WaitOne();
 
-            gch.AddrOfPinnedObject();
+            gch.Free();
 
             Console.WriteLine("After read in main thread");
 
