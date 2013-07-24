@@ -2,6 +2,7 @@
 {
     using System;
     using System.Runtime.InteropServices;
+    using System.Threading;
 
     public static class Interop
     {
@@ -16,11 +17,11 @@
         public static extern UInt32 GetLastError();
 
         [DllImport("kernel32.dll")]
-        public static extern bool GetQueuedCompletionStatus(
+        public static unsafe extern bool GetQueuedCompletionStatus(
             [In] IntPtr completionPort,
             [Out] out UInt32 ptrBytesTransferred,
             [Out] out UInt32 ptrCompletionKey,
-            [Out] out IntPtr lpOverlapped,
+            [Out] NativeOverlapped** lpOverlapped,
             [In] UInt32 dwMilliseconds);
 
         [DllImport("kernel32.dll")]
@@ -34,11 +35,18 @@
             [In] IntPtr hTemplateFile);
 
         [DllImport("kernel32.dll")]
-        public static extern bool ReadFile(
+        public static unsafe extern bool ReadFile(
             [In] IntPtr hFile,
             [Out] byte[] lpBuffer,
             [In] uint maxBytesToRead,
             [Out] out UInt32 bytesActuallyRead,
+            [In] NativeOverlapped* lpOverlapped);
+
+        [DllImport("kernel32.dll")]
+        public static extern bool PostQueuedCompletionStatus(
+            [In] IntPtr completionPort,
+            [In] UInt32 bytesTrasferred,
+            [In] UInt32 completionKey,
             [In] IntPtr lpOverlapped);
     }
 }

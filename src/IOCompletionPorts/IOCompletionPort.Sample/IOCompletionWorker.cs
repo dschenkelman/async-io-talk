@@ -1,36 +1,41 @@
 ﻿namespace IOCompletionPort.Sample
 {
     using System;
+    using System.Threading;
 
     using IOCompletionPorts;
 
     public class IOCompletionWorker
     { 
-        public void Start(IntPtr completionPort)
+        public unsafe void Start(IntPtr completionPort)
         {
             while (true)
             {
                 uint bytesRead;
                 uint completionKey;
-                IntPtr overlapped;
+                NativeOverlapped* nativeOverlapped;
 
-                Console.WriteLine("About to get queued completion status on {0}", completionPort);
+                ThreadLogger.Log("About to get queued completion status on {0}", completionPort);
 
                 var result = Interop.GetQueuedCompletionStatus(
                     completionPort, 
                     out bytesRead,
                     out completionKey,
-                    out overlapped, 
+                    &nativeOverlapped, 
                     uint.MaxValue);
+
+                var overlapped = Overlapped.Unpack(nativeOverlapped);
 
                 if (result)
                 {
-                    Console.WriteLine("Byte read");
+                    ((FileReadAsyncResult)overlapped.AsyncResult).ReadCallback(bytesRead, completionKey);
                 }
                 else
                 {
-                    Console.WriteLine(Interop.GetLastError());
+                    ThreadLogger.Log(Interop.GetLastError().ToString());
                 }
+
+                Overlapped.Free(nativeOverlapped);
             }
         }
     }
