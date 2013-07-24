@@ -13,6 +13,8 @@
 
         public bool CompletedSynchronously { get; private set; }
 
-        public Action<uint, uint> ReadCallback { get; set; }
+        public Action<uint, byte[]> ReadCallback { get; set; }
+
+        public byte[] Buffer { get; set; }
     }
 }

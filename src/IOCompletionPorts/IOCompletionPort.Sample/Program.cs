@@ -1,6 +1,7 @@
 ﻿namespace IOCompletionPort.Sample
 {
     using System;
+    using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -20,9 +21,9 @@
             ThreadLogger.Log("Completion port handle: {0}", completionPortHandle);
 
             var completionPortThread = new Thread(() => new IOCompletionWorker().Start(completionPortHandle))
-                                           {
-                                               IsBackground = true
-                                           };
+            {
+                IsBackground = true
+            };
             completionPortThread.Start();
 
             const uint Flags = 128 | (uint)1 << 30;
@@ -54,8 +55,9 @@
             {
                 AsyncResult = new FileReadAsyncResult()
                 {
-                    ReadCallback = (read, completionKey) => 
-                        ThreadLogger.Log("Bytes read: {0}, Completion Key: {1}", read, completionKey)
+                    ReadCallback = (bytesCount, buffer) => 
+                        ThreadLogger.Log(Encoding.UTF8.GetString(buffer, 0, (int)bytesCount)),
+                    Buffer = readBuffer
                 } 
             };
 

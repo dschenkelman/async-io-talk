@@ -28,7 +28,8 @@
 
                 if (result)
                 {
-                    ((FileReadAsyncResult)overlapped.AsyncResult).ReadCallback(bytesRead, completionKey);
+                    var asyncResult = ((FileReadAsyncResult)overlapped.AsyncResult);
+                    asyncResult.ReadCallback(bytesRead, asyncResult.Buffer);
                 }
                 else
                 {
