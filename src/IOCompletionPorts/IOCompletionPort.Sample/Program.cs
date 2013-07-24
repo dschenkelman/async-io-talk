@@ -1,6 +1,7 @@
 ﻿namespace IOCompletionPort.Sample
 {
     using System;
+    using System.IO;
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
@@ -12,11 +13,7 @@
         static unsafe void Main(string[] args)
         {
             // create completion port
-            var completionPortHandle = Interop.CreateIoCompletionPort(
-                new IntPtr(-1), 
-                IntPtr.Zero,
-                0, 
-                0);
+            var completionPortHandle = Interop.CreateIoCompletionPort(new IntPtr(-1), IntPtr.Zero, 0,  0);
 
             ThreadLogger.Log("Completion port handle: {0}", completionPortHandle);
 
@@ -28,12 +25,7 @@
 
             const uint Flags = 128 | (uint)1 << 30;
 
-            var fileHandle = Interop.CreateFile(
-                "test.txt",
-                /*generic read*/ (uint)1 << 31,
-                /*don't share*/ 0,
-                IntPtr.Zero,
-                /*OPEN_EXISTS*/ 3,
+            var fileHandle = Interop.CreateFile("test.txt", (uint)1 << 31, 0, IntPtr.Zero, 3,
                 /*FILE_ATTRIBUTE_NORMAL | FILE_FLAG_OVERLAPPED */ Flags,
                 IntPtr.Zero);
 
@@ -47,7 +39,7 @@
 
             ThreadLogger.Log("Associated file handle with completion port");
 
-            var readBuffer = new byte[8192];
+            var readBuffer = new byte[1024];
 
             uint bytesRead;
 
@@ -55,8 +47,11 @@
             {
                 AsyncResult = new FileReadAsyncResult()
                 {
-                    ReadCallback = (bytesCount, buffer) => 
-                        ThreadLogger.Log(Encoding.UTF8.GetString(buffer, 0, (int)bytesCount)),
+                    ReadCallback = (bytesCount, buffer) =>
+                        {
+                            var contentRead = Encoding.UTF8.GetString(buffer, 0, (int)bytesCount);
+                            ThreadLogger.Log(contentRead);
+                        },
                     Buffer = readBuffer
                 } 
             };
