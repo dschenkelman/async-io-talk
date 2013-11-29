@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IRunnable.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProgramWithAPM.cs" />
     <Compile Include="ProgramWithEvents.cs" />

@@ -9,7 +9,13 @@ namespace Tasks
 
         static void Main(string[] args)
         {
-            new ProgramWithEvents().Run();
+            // decide which asynchronous proposal to use
+            Run(new ProgramWithTasksAndCancellation());
+        }
+
+        static void Run(IRunnable runnable)
+        {
+            runnable.Run();
 
             ResetEvent.WaitOne();
 

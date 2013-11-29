@@ -7,7 +7,7 @@ namespace Tasks
 {
     public static class TaskExtensions
     {
-        public static Task<Stream> GetResponseAsync(this HttpWebRequest webRequest)
+        public static Task<Stream> CustomGetResponseStreamAsync(this HttpWebRequest webRequest)
         {
             var tcs = new TaskCompletionSource<Stream>();
 

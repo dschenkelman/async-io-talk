@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace Tasks
 {
-    class ProgramWithAPM
+    class ProgramWithAPM : IRunnable
     {
         private int pending;
 

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Tasks
 {
-    class ProgramWithTasks
+    class ProgramWithTasks : IRunnable
     {
         public void Run()
         {

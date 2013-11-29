@@ -4,7 +4,7 @@ using System.Net;
 
 namespace Tasks
 {
-    public class ProgramWithEvents
+    public class ProgramWithEvents : IRunnable
     {
         private int pending;
 
